@@ -1,0 +1,5 @@
+CatchScenarios_VDmodelTracers was split into components
+CatchScenarios_VDmodelTracers_numberArray has storeNumbersArray
+CatchScenarios_VDmodelTracers_tracersArray has storeTracersArray
+CatchScenarios_VDmodelTracers_weightsArray has storeWeightsArray
+CatchScenarios_VDmodelTracers_YOYArray has storeYOYArray
