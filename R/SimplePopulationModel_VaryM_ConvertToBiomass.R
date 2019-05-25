@@ -33,28 +33,42 @@ N0<-(B0/aveWeight)/1000 #numbers are in 1000's
 
 baseM<-(-1)*log(N0/(N0+R0),base=exp(1))
 
-##set up M to vary, 
-x1<-seq((pi/4),(4/5)*pi, length.out=120); y1<-unlist(lapply(x1, sin))
-y2<-rep(0.9, 2)
-x3<-seq((1/8)*pi, (4/6)*pi, length.out=110); y3<-unlist(lapply(x3, sin))
-yy<-c(y1*1.7, y2, (1-y3)+0.3)
-plot(c(y1, y2, 1-y1), type="l")
+sinFn <- function(x, baseM){
+  y <- baseM*0.8 * sin((x * pi)/100) + baseM
+  return(y)
+}
+test <- seq(0,200, length.out=1000); testy <- unlist(lapply(test, sinFn, baseM=baseM))
+
+plot(x=test, y=testy, type="l")
 
 
-Mscalar=yy+runif(length(yy))/5 
+Mscalar=testy+rnorm(length(testy),0,0.005)
 
+pdf(paste(plotPath, "CompareNewSimM.pdf", sep=""), height=4, width=7)
+par(las=1, mar=c(4,4,1,4))
+plot(x=test, y=Mscalar, type="l", col=myGrey, lwd=1.2, ylim=c(min(Mscalar), max(Mscalar)), ylab="M", xlab="Timestep (years)", xlim=c(0, 235))
+points(x=test, y=testy, col="black", lty=2, lwd=2, type="l")
+abline(h=baseM, col="red", lty=2, lwd=2)
+axis(at=baseM, labels = "Base M", col.axis="red", side=4, col.ticks = "red")
 
-# Mscalar=unlist(lapply(xx, sin))+runif(length(xx))/5 + 0.6
-
-
-MbyTime<-baseM*Mscalar
 #write M out so can be replicated exactly if needed
 # write.csv(MbyTime, paste(plotPath,"Mbytime.csv", sep=""), row.names = FALSE)
+# read in the old one to compare
 MbyTime<- (read.csv(paste(plotPath,"Mbytime.csv", sep="")))[,1]
+# par(new=TRUE)
+points(x=0:(length(MbyTime)-1),y=MbyTime, type="l", col=myBlue, xlab="", ylab="")
+dev.off()
+
+#write M out so can be replicated exactly if needed
+MbyTime_df <- data.frame(cbind("Timestep"=test, "M"=Mscalar, "SmoothM"=testy))
+# write.csv(MbyTime, paste(plotPath,"MbytimeSimple.csv", sep=""), row.names = FALSE)
+
+MbyTime_df<- (read.csv(paste(plotPath,"MbytimeSimple.csv", sep="")))
 
 pdf(paste(plotPath,"MbyTime.pdf",sep=""),height=4, width=7)
 par(mfrow=c(1,1),mar=c(4,4.5,2,0.5),oma=c(0,0,2,0))
-plot(MbyTime, type="l", col=myGrey,ylab="M", xlab="Timestep (years)", cex.axis=thisCex, cex.lab=thisCex)
+plot(x=MbyTime_df$Timestep, y=MbyTime_df$M, type="l", col=myGrey,ylab="M", xlab="Timestep (years)", cex.axis=thisCex, cex.lab=thisCex)
+points(x=MbyTime_df$Timestep, y=MbyTime_df$SmoothM, type="l", lty=2, lwd=2)
 abline(h=baseM,col="red",lty=2, lwd=1.5)
 dev.off()
 
@@ -63,6 +77,7 @@ this_h<-0.8; htext<-gsub("\\.","",as.character(this_h))
 ##do the cap population, which is the result of the lowest M, and if we are using the original BH, the lowest h
 startPop<-N0; basePopulation<-startPop; cap_h<-min(this_h)
 
+MbyTime <- MbyTime_df$M
 nts<-length(MbyTime)
 
 ##########################################################################################################################
@@ -134,7 +149,7 @@ abline(v=B0, col="red", lty=2)
 mtext("A", font=2, side=3, adj=0, line=0, outer=TRUE, cex=thisCex)
 #
 yMax<-max(SSBarray, na.rm=TRUE)
-yMax<-1800
+yMax<-4050
 plot(SSBarray[1,], ylim=c(0, yMax),  type="n", ylab="SSB (tonnes)", xlab="Timestep (years)", cex.axis=thisCex, cex.lab=thisCex)
 for(h in 1:nhs){
   points(SSBarray[h,], type="l", col=colbyh[h], lwd=2)
@@ -238,7 +253,7 @@ abline(v=B0, col="red", lty=2)
 mtext("A", font=2, side=3, adj=0, line=0, outer=TRUE, cex=thisCex)
 #
 yMax<-max(SSBarray, na.rm=TRUE)
-yMax<-1800
+yMax<-4050
 plot(SSBarray[1,], ylim=c(0, yMax),  type="n", ylab="SSB (tonnes)", xlab="Timestep (years)", cex.axis=thisCex, cex.lab=thisCex)
 for(h in 1:nhs){
   points(SSBarray[h,], type="l", col=colbyh[h], lwd=2)

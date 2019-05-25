@@ -88,7 +88,7 @@ dev.off()
 
 
 ##seepness example plots - plot for paper
-thisAxisCex<-1.6; thisCex<-1.8
+thisAxisCex<-1.6; thisCex<-1.8; thisYlim<-950
 pdf(paste(plotPath,"BHExample_h.pdf",sep=""),height=5, width=14)
 par(mar=c(4.5,5,5,6), mfrow=c(1,2))
 h<-0.4; hcol<-myBlue
@@ -98,7 +98,7 @@ thisAlpha<-calc_a(h=h,R0=R0)
 thisR<-unlist(lapply(testS,calc_rec,a=thisAlpha,b=thisBeta,B0=B0,new_a=thisAlpha))
 R02<-calc_rec(0.2*B0,a=thisAlpha,b=thisBeta,B0=B0,new_a=thisAlpha)
 
-plot(x=testS,y=thisR,type="n",lwd=2,xlab="Spawning stock biomass",ylab="Recruitment",cex.axis=thisCex,cex.lab=thisCex)
+plot(x=testS,y=thisR,type="n",lwd=2,xlab="Spawning stock biomass",ylab="Recruitment",cex.axis=thisCex,cex.lab=thisCex, ylim=c(0, thisYlim))
 axis(at=B0,labels = expression('B'[0]),side=3,col.axis="black",cex.axis=thisAxisCex,line=-0.2)
 axis(at=R0,labels = expression('R'[0]),side=4,col.axis="black",cex.axis=thisAxisCex,las=2)
 abline(v=B0,col="black",lty=4,lwd=3.5)
@@ -117,7 +117,7 @@ thisBeta<-calc_b(B0=B0,h=h)
 thisAlpha<-calc_a(h=h,R0=R0)
 thisR<-unlist(lapply(testS,calc_rec,a=thisAlpha,b=thisBeta,B0=B0,new_a=thisAlpha))
 R02<-calc_rec(0.2*B0,a=thisAlpha,b=thisBeta,B0=B0,new_a=thisAlpha)
-plot(x=testS,y=thisR,type="n",lwd=2,xlab="Spawning stock biomass",ylab="Recruitment",cex.axis=thisCex,cex.lab=thisCex)
+plot(x=testS,y=thisR,type="n",lwd=2,xlab="Spawning stock biomass",ylab="Recruitment",cex.axis=thisCex,cex.lab=thisCex, ylim=c(0, thisYlim))
 axis(at=B0,labels = expression('B'[0]),side=3,col.axis="black",cex.axis=thisAxisCex,line=-0.2)
 axis(at=R0,labels = expression('R'[0]),side=4,col.axis="black",cex.axis=thisAxisCex,las=2)
 abline(v=B0,col="black",lty=4,lwd=3.5)

@@ -66,7 +66,7 @@ capText<-"No cap"
   plot(Qtimes[baseCappedIndex,QtimeIndex][1,],type="l", ylim=c(thisMin, thisMax), xaxt="n", xlab="", ylab="Kempton's Q", cex=thisCex, cex.axis=thisCex, cex.lab=thisCex)
   axis(at=axisYearsAt,labels = axisYears,side=1,las=2, cex.axis=thisCex, cex.lab=thisCex)
   polygon(x=c(seq(1,length(QtimeIndex)), rev(seq(1,length(QtimeIndex)))), y=c(rep(preFishingMin,length(QtimeIndex)), rep(preFishingMax, length(QtimeIndex))), 
-          border=NA, col=myGreen_trans)
+          border=NA, col=myGrey_trans)
   for(s in 1:nscenarios){
     if(s!=3){
       cat(lookup_df$scenario[baseCappedIndex][s],"--")
@@ -83,7 +83,7 @@ r<-2
   plot(Qtimes[baseCappedIndex,QtimeIndex][1,],type="l", ylim=c(thisMin, thisMax), xaxt="n", xlab="", ylab="Kempton's Q", cex=thisCex, cex.axis=thisCex, cex.lab=thisCex)
   axis(at=axisYearsAt,labels = axisYears,side=1,las=2, cex.axis=thisCex, cex.lab=thisCex)
   polygon(x=c(seq(1,length(QtimeIndex)), rev(seq(1,length(QtimeIndex)))), y=c(rep(preFishingMin,length(QtimeIndex)), rep(preFishingMax, length(QtimeIndex))), 
-          border=NA, col=myGreen_trans)
+          border=NA, col=myGrey_trans)
   for(s in 1:nscenarios){
     if(s!=3){
       cat(lookup_df$scenario[baseCappedIndex][s],"--")
@@ -124,8 +124,9 @@ for(r in 1:2){
 
 }
 
-for(r in 1:2){
   for(h in 1:3){
+    for(r in 1:2){
+      
     if(r==1){
       baseCappedIndex<-lookup_df$SSR=="bin" & lookup_df$h==h;  htext<-steepnessSens[h]
       capText<-"No cap"
@@ -136,7 +137,7 @@ for(r in 1:2){
     plot(Qtimes[baseCappedIndex,QtimeIndex][1,],type="l", ylim=c(thisMin, thisMax), xaxt="n", xlab="", ylab="Kempton's Q", cex=thisCex, cex.axis=thisCex, cex.lab=thisCex)
     axis(at=axisYearsAt,labels = axisYears,side=1,las=2, cex=thisCex, cex.axis=thisCex, cex.lab=thisCex)
     polygon(x=c(seq(1,length(QtimeIndex)), rev(seq(1,length(QtimeIndex)))), y=c(rep(preFishingMin,length(QtimeIndex)), rep(preFishingMax, length(QtimeIndex))), 
-            border=NA, col=myGreen_trans)
+            border=NA, col=myGrey_trans)
     for(s in 1:nscenarios){
       if(s!=3){
         cat(lookup_df$scenario[baseCappedIndex][s],"--")

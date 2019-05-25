@@ -164,8 +164,9 @@ for(r in 1:2){
   mtext(paste(capText, sep=""), side=3,  adj=0, font=1, cex=thisCex)
   
 }
-for(r in 1:2){
   for(h in 1:3){
+    for(r in 1:2){
+      
     if(r==1){
       baseCappedIndex<-lookup_df$SSR[catchScenIndex]=="bin" & lookup_df$h[catchScenIndex]==h;  htext<-steepnessSens[h]
       capText<-"No cap"; thisLetter <-"C"

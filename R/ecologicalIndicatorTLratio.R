@@ -75,7 +75,7 @@ for(r in 1:2){
     plot(TLarray[baseCappedIndex,QtimeIndex][1,],type="l", ylim=c(thisMin, thisMax), xaxt="n", xlab="", ylab="Biomass ratio: TL 4+ / TL 3", cex=thisCex, cex.lab=thisCex, cex.axis=thisCex)
     axis(at=axisYearsAt,labels = axisYears,side=1,las=2, cex.axis=thisCex)
     polygon(x=c(seq(1,length(QtimeIndex)), rev(seq(1,length(QtimeIndex)))), y=c(rep(preFishingMin,length(QtimeIndex)), rep(preFishingMax, length(QtimeIndex))), 
-            border=NA, col=myGreen_trans)
+            border=NA, col=myGrey_trans)
     for(s in 1:nscenarios){
       if(s!=3){
         points(TLarray[baseCappedIndex,QtimeIndex][s,],type="l", col=scenarioColors[s])
@@ -133,8 +133,9 @@ for(r in 1:2){
   legend(legend=steepnessSens, lty=1, seg.len=3, bty="n", col=colBySteepness, x="bottomleft", inset=0.01, title="Steepness", cex=thisCex)
    mtext(paste(capText, sep=""), side=3,  adj=0, cex=thisCex)
 }
-for(r in 1:2){
   for(h in 1:3){
+    for(r in 1:2){
+      
   if(r==1){
     baseCappedIndex<-lookup_df$SSR=="bin" & lookup_df$h==h;  htext<-steepnessSens[h]
     capText<-"No cap"; thisLetter<-"A"
@@ -145,7 +146,7 @@ for(r in 1:2){
   plot(TLarray[baseCappedIndex,QtimeIndex][1,],type="l", ylim=c(thisMin, thisMax), xaxt="n", xlab="", ylab="Biomass ratio: TL 4+ / TL 3", cex=thisCex, cex.lab=thisCex, cex.axis=thisCex)
   axis(at=axisYearsAt,labels = axisYears,side=1,las=2, cex.axis=thisCex)
   polygon(x=c(seq(1,length(QtimeIndex)), rev(seq(1,length(QtimeIndex)))), y=c(rep(preFishingMin,length(QtimeIndex)), rep(preFishingMax, length(QtimeIndex))), 
-          border=NA, col=myGreen_trans)
+          border=NA, col=myGrey_trans)
   for(s in 1:nscenarios){
     if(s!=3){
       points(TLarray[baseCappedIndex,QtimeIndex][s,],type="l", col=scenarioColors[s])
